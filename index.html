@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narratify Co., Ltd. - Technology as Narrative</title>
+</head>
+<body>
+    <div id="border-container"></div>
+    <div id="content-container">
+        <header>
+            <h1 id="companyName">Narratify Co., Ltd.</h1>
+            <p id="tagline">"Technology as Narrative"</p>
+        </header>
+
+        <section id="overview">
+            <h2>Company Overview</h2>
+            <p>Name: Narratify co., ltd.</p>
+            <p>CEO: Kohei Endo</p>
+            <p>Founded: November 2017</p>
+            <p>Business: Product planning, development, and operation</p>
+        </section>
+
+        <section id="message">
+            <h2>Our Message</h2>
+            <p>
+                At Narratify, we view technology through the lens of storytelling, developing products as if we were crafting narratives.
+                This approach represents a uniquely Japanese way of engaging with technology, akin to the creative processes behind novels, films, and games.
+            </p>
+            <p>
+                Today, emerging technologies like AI, blockchain, and quantum computing are asking us a crucial question:
+                "What kind of future will you choose?"
+            </p>
+            <p>
+                Our answer is not a world of arrogant control over everything.
+                Instead, we strive for a new harmony between technology, nature, and humanity.
+            </p>
+            <p>
+                Narratify steps beyond conventional views of technology, exploring new concepts rooted in animism—the Japanese perspective that sees life in all things.
+                We aim to introduce the world to a new technological viewpoint based on "Vernacular Technology"—indigenous tech wisdom unique to Japan.
+            </p>
+            <p>
+                Through this, we contribute to realizing a future where humans, technology, and nature are united as one.
+            </p>
+        </section>
+
+        <section id="team">
+            <h2>Our Team</h2>
+            <p>Kohei Endo (CEO)</p>
+            <p>Riyo Hyuga (Executive Officer)</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>Email: end@narratify.co</p>
+        </section>
+    </div>
+
+    <script>
+        function applyStyles() {
+            const borderContainer = document.getElementById('border-container');
+            const contentContainer = document.getElementById('content-container');
+            const companyName = document.getElementById('companyName');
+            const tagline = document.getElementById('tagline');
+            const body = document.body;
+            const allElements = document.getElementsByTagName('*');
+
+            // ベースのスタイル
+            body.style.fontFamily = "Consolas, 'Courier New', monospace";
+            body.style.backgroundColor = "#000";
+            body.style.color = "#33ff33";
+            body.style.lineHeight = "1.6";
+            body.style.margin = "0";
+            body.style.padding = "0";
+
+            borderContainer.style.position = "fixed";
+            borderContainer.style.top = "0";
+            borderContainer.style.left = "0";
+            borderContainer.style.width = "100%";
+            borderContainer.style.height = "100%";
+            borderContainer.style.whiteSpace = "pre";
+            borderContainer.style.overflow = "hidden";
+            borderContainer.style.pointerEvents = "none";
+            borderContainer.style.zIndex = "1";
+            borderContainer.style.color = "#33ff33";
+
+            contentContainer.style.position = "relative";
+            contentContainer.style.zIndex = "2";
+            contentContainer.style.padding = "20px";
+            contentContainer.style.boxSizing = "border-box";
+
+            companyName.style.textAlign = "center";
+            companyName.style.marginBottom = "10px";
+            companyName.style.whiteSpace = "nowrap";
+            companyName.style.overflow = "hidden";
+            companyName.style.textOverflow = "ellipsis";
+
+            tagline.style.textAlign = "center";
+            tagline.style.marginTop = "10px";
+
+            // すべての h2 要素にスタイルを適用
+            for (let element of allElements) {
+                if (element.tagName === 'H2') {
+                    element.style.borderBottom = "1px solid #33ff33";
+                    element.style.paddingBottom = "10px";
+                }
+                if (element.tagName === 'SECTION') {
+                    element.style.marginBottom = "50px";
+                }
+            }
+
+            // レスポンシブデザインと飾り罫
+            function handleResize() {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                const isMobile = width < 768;
+
+                if (isMobile) {
+                    contentContainer.style.width = "100%";
+                    companyName.style.fontSize = "6vw";
+                    tagline.style.fontSize = "3vw";
+                } else {
+                    contentContainer.style.width = "50%";
+                    contentContainer.style.margin = "0 auto";
+                    companyName.style.fontSize = "3vw";
+                    tagline.style.fontSize = "1.5vw";
+                }
+
+                // 飾り罫の生成
+                const borderWidth = isMobile ? width : width / 2;
+                const borderHeight = height;
+                
+                const topBottom = '+' + '-'.repeat(Math.floor(borderWidth / 8) - 2) + '+\n';
+                const empty = '|' + ' '.repeat(Math.floor(borderWidth / 8) - 2) + '|\n';
+                const sides = empty.repeat(Math.floor(borderHeight / 16) - 2);
+                
+                borderContainer.textContent = topBottom + sides + topBottom;
+                
+                // 飾り罫の位置調整
+                if (!isMobile) {
+                    borderContainer.style.left = "25%";
+                    borderContainer.style.width = "50%";
+                } else {
+                    borderContainer.style.left = "0";
+                    borderContainer.style.width = "100%";
+                }
+
+                // 右側の | が見えるように調整
+                borderContainer.style.paddingRight = "1px";
+            }
+
+            // 初期化時とリサイズ時にスタイルを適用
+            handleResize();
+            window.addEventListener('resize', handleResize);
+        }
+
+        // テキストノイズ効果
+        function applyTextNoiseEffect() {
+            const textNodes = [];
+            const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+            let node;
+            while(node = walk.nextNode()) {
+                textNodes.push(node);
+            }
+
+            const symbols = '!@#$%^&*()_+-={}[]|;:,.<>?';
+
+            function addNoise() {
+                const randomNode = textNodes[Math.floor(Math.random() * textNodes.length)];
+                const text = randomNode.textContent;
+                const pos = Math.floor(Math.random() * text.length);
+                const char = text.charAt(pos);
+                if (char.trim() !== '') {
+                    const noisyChar = symbols.charAt(Math.floor(Math.random() * symbols.length));
+                    randomNode.textContent = text.substring(0, pos) + noisyChar + text.substring(pos + 1);
+                    setTimeout(() => {
+                        randomNode.textContent = text;
+                    }, 50);
+                }
+            }
+
+            setInterval(addNoise, 100);
+        }
+
+        // DOM読み込み完了時にスタイルを適用
+        document.addEventListener('DOMContentLoaded', () => {
+            applyStyles();
+            applyTextNoiseEffect();
+        });
+    </script>
+</body>
+</html>
